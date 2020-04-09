@@ -1,0 +1,21 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Geometry2.Styles">
+
+
+    <Color x:Key="darkBlack">#1F2628</Color>
+    <SolidColorBrush  x:Key="DarkBlack" Color="{StaticResource darkBlack}" />
+
+    <Color x:Key="darkWhite">#DCE1E4</Color>
+    <SolidColorBrush  x:Key="DarkWhite" Color="{StaticResource darkWhite}" />
+
+    <Color x:Key="darkDarkBlack">#151A1A</Color>
+    <SolidColorBrush  x:Key="DarkDarkBlack" Color="{StaticResource darkDarkBlack}" />
+
+    <Color x:Key="darkBlue">#395383</Color>
+    <SolidColorBrush  x:Key="DarkBlue" Color="{StaticResource darkBlue}" />
+
+    <Color x:Key="darkGray">#6A6D6E</Color>
+    <SolidColorBrush  x:Key="DarkGray" Color="{StaticResource darkGray}" />
+
+</ResourceDictionary>
