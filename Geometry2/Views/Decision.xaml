@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Geometry2.Views"
+      xmlns:UC="clr-namespace:Geometry2.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Decision"
@@ -52,37 +53,75 @@
 
             <Label Content="Find" Style="{StaticResource Logo}" />
             
-            <Grid Margin="10 80 10 0">
+            <Grid Margin="20 80 20 0">
 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
 
                     <StackPanel>
 
-                        <ItemsControl ItemsSource="{Binding Figure}">
+                        <ItemsControl x:Name="MyItems1" ItemsSource="{Binding Figure}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding ShapeId}" />
-                                        <TextBlock Text="{Binding Value}" />
-                                        <TextBlock Text="{Binding Letter}" />
-                                        <TextBlock Text="{Binding MathematicalProperty}" />
-                                    </StackPanel>
+                                    <Viewbox>
+                                        <StackPanel>
+                                            <Button Style="{StaticResource MathButtonOutput}" Command="{Binding ElementName=MyItems1, Path=DataContext.FindButtonCommand}" CommandParameter="{Binding ShapeId}">
+                                                <TextBlock>
+                                                <Run Text="{Binding Letter}" Foreground="{StaticResource DarkBlue}" />
+                                                <Run Text="-" />
+                                                <Run Text="{Binding MathematicalProperty}" />
+                                                </TextBlock>
+                                            </Button>
+                                            
+                                            <!--{Binding MyVisibility}--> 
+                                            <Viewbox Visibility="Visible">
+                                                <Grid>
+
+                                                    <UC:BackAdd />
+
+                                                    <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="360" Width="360">
+
+                                                        <ItemsControl ItemsSource="{Binding Figure}">
+                                                            <StackPanel>
+                                                                <TextBox Text="{Binding MathematicalProperty}" />
+                                                                <TextBox Text="{Binding Letter}" />
+                                                                <TextBox Text="" />
+                                                            </StackPanel>
+                                                        </ItemsControl>
+
+                                                    </ScrollViewer>
+                                                </Grid>
+                                            </Viewbox>
+                                        </StackPanel>
+                                    </Viewbox>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
 
-                        <Button Content="Add +" Style="{StaticResource AddButton}" Command="{Binding AddShapeCommand}" />
 
-                        <ItemsControl ItemsSource="{Binding AddWindow}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button Content="{Binding}" />
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                        <Viewbox MaxWidth="110" MaxHeight="50" Margin="0 10 100 10" HorizontalAlignment="Left">
+                            <Button Content="Add +" Style="{StaticResource AddButton}" Command="{Binding OpenInputCommand}" />
+                        </Viewbox>
+
+                        <Viewbox Visibility="{Binding IsVisibility}">
+                            <Grid>
+
+                                <UC:BackAdd />
+
+                                <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="360" >
+
+                                    <ItemsControl x:Name="MyItems" ItemsSource="{Binding AddWindow}">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Button Content="{Binding}" Style="{StaticResource MathButton}" Command="{Binding ElementName=MyItems, Path=DataContext.AddShapeCommand}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </ScrollViewer>
+                            </Grid>
+                        </Viewbox>
 
                     </StackPanel>
-
                 </ScrollViewer>
 
             </Grid>

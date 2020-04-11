@@ -43,4 +43,71 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MathButton" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource DarkDarkBlack}" />
+        <Setter Property="Height" Value="70" />
+        <Setter Property="FontFamily" Value="MS Shell Dlg 2" />
+        <Setter Property="Margin" Value="25 10 25 10" />
+        <Setter Property="Foreground" Value="{StaticResource DarkWhite}" />
+        <Setter Property="FontSize" Value="50" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        Height="{TemplateBinding Height}"
+                        BorderThickness="0">
+
+                        <ContentPresenter
+                            x:Name="ContentP"
+                            Content="{TemplateBinding Content}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                        />
+
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="FontSize" Value="45" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MathButtonOutput" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource DarkDarkBlack}" />
+        <Setter Property="Height" Value="80" />
+        <Setter Property="Width" Value="380" />
+        <Setter Property="FontFamily" Value="MS Shell Dlg 2" />
+        <Setter Property="Margin" Value="0 7" />
+        <Setter Property="Foreground" Value="{StaticResource DarkWhite}" />
+        <Setter Property="FontSize" Value="50" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        Height="{TemplateBinding Height}"
+                        BorderThickness="0">
+
+                        <ContentPresenter
+                            Margin="15 0"
+                            Content="{TemplateBinding Content}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                        />
+
+                    </Border>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

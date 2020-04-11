@@ -11,6 +11,11 @@ namespace Geometry2.Models
         Length,
         Volume,
         Hipothesis,
-        Bisector
+        Bisector,
+        a,
+        x,
+        s,
+        f,
+        g
     }
 }

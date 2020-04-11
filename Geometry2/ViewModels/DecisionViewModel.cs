@@ -1,20 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+using System.Windows;
 using Caliburn.Micro;
 using Geometry2.Models;
 
 namespace Geometry2.ViewModels
 {
-    public class DecisionViewModel : Navigation.NavigateViewModel
+    public class DecisionViewModel : INotifyPropertyChanged
     {
         public RelayCommand AddShapeCommand { get; set; }
+
+        public RelayCommand OpenInputCommand { get; set; }
+
+        public RelayCommand FindButtonCommand { get; set; }
 
         public BindableCollection<ShapeData> Figure { get; set; }
 
         public BindableCollection<MathematicalProperty> AddWindow { get; set; }
+
+        private Visibility _IsVisibility = Visibility.Collapsed;
+        public Visibility IsVisibility
+        {
+            get { return _IsVisibility; }
+            set
+            {
+                _IsVisibility = value;
+                this.OnPropertyChanged();
+            }
+        }
 
 
         public DecisionViewModel()
@@ -24,6 +39,27 @@ namespace Geometry2.ViewModels
             AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
 
             AddShapeCommand = new RelayCommand(AddShape);
+            OpenInputCommand = new RelayCommand(OpenInput);
+            FindButtonCommand = new RelayCommand(FindButton);
+        }
+
+        public void FindButton(object param)
+        {
+           var par = (int)param - 1;
+
+           var shapeData = Figure[par];
+
+           shapeData.MyVisibility = VisCheck(shapeData.MyVisibility);
+
+           Figure[par] = shapeData;
+
+           Figure.Refresh();
+        }
+
+
+        public void OpenInput(object param)
+        {
+           IsVisibility = VisCheck(IsVisibility);
         }
 
         public void AddShape(object param)
@@ -38,10 +74,27 @@ namespace Geometry2.ViewModels
             }
 
             Figure.Add(da.GetDataShape(maxId + 1));
+            IsVisibility = Visibility.Collapsed;
 
         }
 
+        private Visibility VisCheck(Visibility IsVisible)
+        {
+            if (IsVisible == Visibility.Collapsed)
+            {
+                return Visibility.Visible;
+            }
+            else
+            {
+               return Visibility.Collapsed;
+            }
+        }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
 
     }
 }

@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace Geometry2.Models
 {
     public class DataAccess
     {
 
-        public List<ShapeData> GetShape(int total = 0)
+        public List<ShapeData> GetShape(int total = 1)
         {
             List<ShapeData> output = new List<ShapeData>();
 
@@ -17,6 +19,27 @@ namespace Geometry2.Models
             {
                 output.Add(GetDataShape(i + 1));
             }
+
+            return output;
+
+        }
+
+        
+        Random Random = new Random();
+
+        public ShapeData GetDataShape(int id)
+        {
+            List<MathematicalProperty> properties = GetDataMathProp();
+
+            var rnd = Random.Next(0, 4);
+
+            ShapeData output = new ShapeData();
+
+            output.ShapeId = id;
+            output.Value = 55;
+            output.Letter = "AB";
+            output.MathematicalProperty = properties[rnd];
+            output.MyVisibility = Visibility.Collapsed;
 
             return output;
 
@@ -33,21 +56,7 @@ namespace Geometry2.Models
 
             return output;
 
-
         }
 
-
-        public ShapeData GetDataShape(int id)
-        {
-            ShapeData output = new ShapeData();
-
-            output.ShapeId = id;
-            output.Value = 55;
-            output.Letter = "AB";
-            output.MathematicalProperty = MathematicalProperty.Length;
-
-            return output;
-
-        }
     }
 }

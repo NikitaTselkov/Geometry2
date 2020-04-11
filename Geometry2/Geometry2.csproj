@@ -79,6 +79,9 @@
     <Compile Include="Models\ShapeData.cs" />
     <Compile Include="ViewModels\DecisionViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\UserControls\BackAdd.xaml.cs">
+      <DependentUpon>BackAdd.xaml</DependentUpon>
+    </Compile>
     <Page Include="Styles\DecisionStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -114,6 +117,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\BackAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
