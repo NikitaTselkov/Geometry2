@@ -73,8 +73,9 @@ namespace Geometry2.ViewModels
                 maxId = Figure.Max(x => x.ShapeId);
             }
 
-            Figure.Add(da.GetDataShape(maxId + 1));
+            Figure.Add(da.GetDataShape(maxId + 1, (MathematicalProperty)param));
             IsVisibility = Visibility.Collapsed;
+
 
         }
 

@@ -13,7 +13,7 @@ namespace Geometry2.Models
 
         public int ShapeId { get; set; }
 
-        public int Value { get; set; }
+        public string Value { get; set; }
 
         public string Letter { get; set; }
 

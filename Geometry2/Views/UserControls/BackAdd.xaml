@@ -7,10 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Grid Width="380" Height="450">
+    <Grid Width="380" MaxHeight="450">
         <Grid 
         Background="{StaticResource DarkDarkBlack}"
-        Height="380" Width="380" >
+        MaxHeight="380" Width="380" >
 
             <Rectangle
             Width="50"

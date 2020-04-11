@@ -8,14 +8,12 @@ namespace Geometry2.Models
 {
     public enum MathematicalProperty
     {
-        Length,
+        Rib,
         Volume,
         Hipothesis,
         Bisector,
         a,
-        x,
-        s,
-        f,
-        g
+        b,
+        c
     }
 }

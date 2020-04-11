@@ -11,7 +11,7 @@ namespace Geometry2.Models
     public class DataAccess
     {
 
-        public List<ShapeData> GetShape(int total = 1)
+        public List<ShapeData> GetShape(int total = 0)
         {
             List<ShapeData> output = new List<ShapeData>();
 
@@ -24,21 +24,14 @@ namespace Geometry2.Models
 
         }
 
-        
-        Random Random = new Random();
-
-        public ShapeData GetDataShape(int id)
+        public ShapeData GetDataShape(int id, MathematicalProperty mathematical = MathematicalProperty.Rib)
         {
-            List<MathematicalProperty> properties = GetDataMathProp();
-
-            var rnd = Random.Next(0, 4);
-
             ShapeData output = new ShapeData();
 
             output.ShapeId = id;
-            output.Value = 55;
+            output.Value = "0";
             output.Letter = "AB";
-            output.MathematicalProperty = properties[rnd];
+            output.MathematicalProperty = mathematical;
             output.MyVisibility = Visibility.Collapsed;
 
             return output;
