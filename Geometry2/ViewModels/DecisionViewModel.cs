@@ -14,9 +14,17 @@ namespace Geometry2.ViewModels
 
         public RelayCommand OpenInputCommand { get; set; }
 
+        public RelayCommand AddShapeGivenCommand { get; set; }
+
+        public RelayCommand OpenInputGivenCommand { get; set; }
+
         public RelayCommand FindButtonCommand { get; set; }
 
+        public RelayCommand FindButtonGivenCommand { get; set; }
+
         public BindableCollection<ShapeData> Figure { get; set; }
+
+        public BindableCollection<ShapeData> GetFigure { get; set; }
 
         public BindableCollection<MathematicalProperty> AddWindow { get; set; }
 
@@ -31,29 +39,46 @@ namespace Geometry2.ViewModels
             }
         }
 
+        private Visibility _IsVisibility2 = Visibility.Collapsed;
+        public Visibility IsVisibility2
+        {
+            get { return _IsVisibility2; }
+            set
+            {
+                _IsVisibility2 = value;
+                this.OnPropertyChanged();
+            }
+        }
+
 
         public DecisionViewModel()
         {
             DataAccess da = new DataAccess();
             Figure = new BindableCollection<ShapeData>(da.GetShape());
+            GetFigure = new BindableCollection<ShapeData>(da.GetShape());
             AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
 
             AddShapeCommand = new RelayCommand(AddShape);
             OpenInputCommand = new RelayCommand(OpenInput);
             FindButtonCommand = new RelayCommand(FindButton);
+
+            AddShapeGivenCommand = new RelayCommand(AddShapeGiven);
+            OpenInputGivenCommand = new RelayCommand(OpenInputGiven);
+            FindButtonGivenCommand = new RelayCommand(FindButtonGiven);
         }
 
         public void FindButton(object param)
         {
            var par = (int)param - 1;
 
-           var shapeData = Figure[par];
+            FindButtonHelp(Figure, par);
+        }
 
-           shapeData.MyVisibility = VisCheck(shapeData.MyVisibility);
+        public void FindButtonGiven(object param)
+        {
+            var par = (int)param - 1;
 
-           Figure[par] = shapeData;
-
-           Figure.Refresh();
+            FindButtonHelp(GetFigure, par);
         }
 
 
@@ -62,22 +87,58 @@ namespace Geometry2.ViewModels
            IsVisibility = VisCheck(IsVisibility);
         }
 
+        public void OpenInputGiven(object param)
+        {
+            IsVisibility2 = VisCheck(IsVisibility2);
+        }
+
         public void AddShape(object param)
+        {
+            AddShapeHelp(Figure, param);
+            IsVisibility = Visibility.Collapsed;
+        }
+
+        public void AddShapeGiven(object param)
+        {
+            AddShapeHelp(GetFigure, param);
+            IsVisibility2 = Visibility.Collapsed;
+        }
+
+        private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param)
         {
             DataAccess da = new DataAccess();
 
             int maxId = 0;
 
-            if (Figure.Count > 0)
+            if (Collection.Count > 0)
             {
-                maxId = Figure.Max(x => x.ShapeId);
+                maxId = Collection.Max(x => x.ShapeId);
             }
 
-            Figure.Add(da.GetDataShape(maxId + 1, (MathematicalProperty)param));
-            IsVisibility = Visibility.Collapsed;
+            var F = da.GetDataShape(maxId + 1, (MathematicalProperty)param);
+
+            F.MyVisibility = Visibility.Visible;
+
+            Collection.Add(F);
 
 
         }
+
+        private void FindButtonHelp(BindableCollection<ShapeData> Collection, int par)
+        {
+
+            var shapeData = Collection[par];
+
+            shapeData.MyVisibility = VisCheck(shapeData.MyVisibility);
+
+            Collection[par] = shapeData;
+
+            Collection.Refresh();
+        }
+
+
+
+
 
         private Visibility VisCheck(Visibility IsVisible)
         {

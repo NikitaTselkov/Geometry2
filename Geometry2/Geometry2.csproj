@@ -82,6 +82,12 @@
     <Compile Include="Views\UserControls\BackAdd.xaml.cs">
       <DependentUpon>BackAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\FindData.xaml.cs">
+      <DependentUpon>FindData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\GivenData.xaml.cs">
+      <DependentUpon>GivenData.xaml</DependentUpon>
+    </Compile>
     <Page Include="Styles\DecisionStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +127,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\BackAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\FindData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\GivenData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

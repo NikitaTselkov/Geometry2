@@ -37,7 +37,7 @@
                     </Grid>
 
                     <ControlTemplate.Triggers>
-
+                       
                         <Trigger Property="IsFocused" Value="True">
 
                             <Trigger.EnterActions>
