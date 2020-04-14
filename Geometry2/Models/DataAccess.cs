@@ -32,7 +32,7 @@ namespace Geometry2.Models
             output.Value = "0";
             output.Letter = "AB";
             output.MathematicalProperty = mathematical;
-            output.MyVisibility = Visibility.Collapsed;
+            output.MyVisibility = Visibility.Visible;
 
             return output;
 

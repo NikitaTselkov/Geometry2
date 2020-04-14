@@ -36,6 +36,41 @@
 
         <Grid Grid.Row="1" Grid.Column="3" Background="{StaticResource DarkBlack}">
 
+            <Viewbox>
+                <Canvas Width="400" Height="400">
+                    <ItemsControl ItemsSource="{Binding Figures}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Grid>
+
+                                    <Label Content="{Binding Letter}" FontSize="30" Margin="{Binding LetterPosition}" Foreground="{StaticResource DarkBlue}" />
+
+                                    <Line
+                                         X1="{Binding PointX1}"
+                                         Y1="{Binding PointY1}"
+                                         X2="{Binding PointX2}"
+                                         Y2="{Binding PointY2}"
+                                         Stroke="{StaticResource DarkWhite}"
+                                         StrokeThickness="10"
+                                         StrokeStartLineCap="Round"
+                                         StrokeEndLineCap="Round"
+                                         StrokeDashArray="{Binding StrokeDashArray}"
+                                         StrokeDashCap="Round"
+                                                                             
+                                    />
+
+
+
+                                </Grid>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Canvas>
+            </Viewbox>
+
+
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="5" Background="{StaticResource DarkBlack}">

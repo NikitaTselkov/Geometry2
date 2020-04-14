@@ -37,7 +37,7 @@
                                                     <StackPanel Margin="0 20">
                                                         <TextBox Text="{Binding MathematicalProperty}" Style="{StaticResource TextOutput}" />
                                                         <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
-                                                        <TextBox Text="{Binding Value}" Style="{StaticResource TextOutput}" />
+                                                        <TextBox Text="{Binding Value}"  Style="{StaticResource TextOutput}" />
                                                     </StackPanel>
                                                 </ItemsControl>
 

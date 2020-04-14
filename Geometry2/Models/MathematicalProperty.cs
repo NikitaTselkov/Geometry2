@@ -12,6 +12,7 @@ namespace Geometry2.Models
         Volume,
         Hipothesis,
         Bisector,
+        Corner,
         a,
         b,
         c

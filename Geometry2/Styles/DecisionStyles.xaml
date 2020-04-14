@@ -120,6 +120,54 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border
+                            Height="{TemplateBinding Height}"
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="0"
+                            MaxHeight="{TemplateBinding MaxHeight}"
+                            Visibility="{TemplateBinding Visibility}">
+
+
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
+
+                            <TextBlock 
+                                Text="Value"
+                                x:Name="hint"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                Foreground="{StaticResource DarkGray}"
+                                FontSize="{TemplateBinding FontSize}"
+                                IsHitTestVisible="False"
+                                TextAlignment="{TemplateBinding TextAlignment}"
+                                Visibility="Collapsed"
+                                TextWrapping="{TemplateBinding TextWrapping}"
+                                HorizontalAlignment="Center"
+                            />
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="Text" Value="" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="hint" Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsEnabled" Value="true" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Visibility" Value="Visible" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

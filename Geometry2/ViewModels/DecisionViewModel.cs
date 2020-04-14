@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Media.Media3D;
 using Caliburn.Micro;
 using Geometry2.Models;
 
@@ -10,6 +12,8 @@ namespace Geometry2.ViewModels
 {
     public class DecisionViewModel : INotifyPropertyChanged
     {
+        #region RelayCommand
+
         public RelayCommand AddShapeCommand { get; set; }
 
         public RelayCommand OpenInputCommand { get; set; }
@@ -22,11 +26,15 @@ namespace Geometry2.ViewModels
 
         public RelayCommand FindButtonGivenCommand { get; set; }
 
+        #endregion
+
         public BindableCollection<ShapeData> Figure { get; set; }
 
         public BindableCollection<ShapeData> GetFigure { get; set; }
 
         public BindableCollection<MathematicalProperty> AddWindow { get; set; }
+
+        public BindableCollection<Figures> Figures { get; set; }
 
         private Visibility _IsVisibility = Visibility.Collapsed;
         public Visibility IsVisibility
@@ -54,8 +62,11 @@ namespace Geometry2.ViewModels
         public DecisionViewModel()
         {
             DataAccess da = new DataAccess();
+            CreateShapes cs = new CreateShapes();
+
             Figure = new BindableCollection<ShapeData>(da.GetShape());
             GetFigure = new BindableCollection<ShapeData>(da.GetShape());
+            Figures = new BindableCollection<Figures>(cs.CreateCube());
             AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
 
             AddShapeCommand = new RelayCommand(AddShape);
@@ -66,6 +77,8 @@ namespace Geometry2.ViewModels
             OpenInputGivenCommand = new RelayCommand(OpenInputGiven);
             FindButtonGivenCommand = new RelayCommand(FindButtonGiven);
         }
+
+        #region Methods
 
         public void FindButton(object param)
         {
@@ -104,6 +117,10 @@ namespace Geometry2.ViewModels
             IsVisibility2 = Visibility.Collapsed;
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param)
         {
             DataAccess da = new DataAccess();
@@ -115,13 +132,35 @@ namespace Geometry2.ViewModels
                 maxId = Collection.Max(x => x.ShapeId);
             }
 
-            var F = da.GetDataShape(maxId + 1, (MathematicalProperty)param);
+             var data = da.GetDataShape(maxId + 1, (MathematicalProperty)param);
 
-            F.MyVisibility = Visibility.Visible;
+            data = Formatting(data);
 
-            Collection.Add(F);
+            Collection.Add(data);
 
+        }
 
+        private ShapeData Formatting(ShapeData data)
+        {
+
+            if (data.MathematicalProperty == MathematicalProperty.Volume)
+            {
+                //if (data.Letter.FirstOrDefault() == Convert.ToChar("∠"))
+                data.Letter = "V";
+            }
+            if (data.MathematicalProperty == MathematicalProperty.Corner)
+            {
+                if (data.Letter.FirstOrDefault() != Convert.ToChar("∠"))
+                {
+                    if (data.Letter == "V")
+                    {
+                        data.Letter = "AB";
+                    }
+                    data.Letter = data.Letter.Insert(0, "∠");
+                }
+            }
+
+            return data;
         }
 
         private void FindButtonHelp(BindableCollection<ShapeData> Collection, int par)
@@ -131,13 +170,12 @@ namespace Geometry2.ViewModels
 
             shapeData.MyVisibility = VisCheck(shapeData.MyVisibility);
 
+            Formatting(shapeData);
+
             Collection[par] = shapeData;
 
             Collection.Refresh();
         }
-
-
-
 
 
         private Visibility VisCheck(Visibility IsVisible)
@@ -152,11 +190,16 @@ namespace Geometry2.ViewModels
             }
         }
 
+        #endregion
+
+        #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName]string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
+        #endregion
     }
 }
