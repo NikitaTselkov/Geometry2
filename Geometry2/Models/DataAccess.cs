@@ -58,15 +58,26 @@ namespace Geometry2.Models
 
         public List<Figures> CreateShape(object input)
         {
+            if (input == null)
+            {
+                input = "Cube";
+            }
+
             CreateShapes cs = new CreateShapes();
 
             var result = new List<Figures>();
             var value = input.ToString();
 
-            if (value == "Cube")
+            switch (value)
             {
-               result = cs.CreateCube();
+                case "Cube":
+                    result = cs.CreateCube();
+                    break;
+
+                default:
+                    break;
             }
+
 
             return result;
         }

@@ -66,11 +66,7 @@ namespace Geometry2.ViewModels
         #endregion
         
         public DecisionViewModel()
-        {
-
-            Figure = new BindableCollection<ShapeData>(da.GetShape());
-            GetFigure = new BindableCollection<ShapeData>(da.GetShape());
-            AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
+        {    
 
             AddShapeCommand = new RelayCommand(AddShape);
             OpenInputCommand = new RelayCommand(OpenInput);
@@ -81,6 +77,7 @@ namespace Geometry2.ViewModels
             FindButtonGivenCommand = new RelayCommand(FindButtonGiven);
 
             NavigationSetup();
+            CreateList();
         }
 
         #region Methods
@@ -89,6 +86,7 @@ namespace Geometry2.ViewModels
         {
             Messenger.Default.Register<Navigation.NavigeteShapes>(this, (x) =>
             {
+                CreateList();
                 Figures = new BindableCollection<Figures>(da.CreateShape(x.Shape));
             });
         }
@@ -134,6 +132,14 @@ namespace Geometry2.ViewModels
 
         #region Private Methods
 
+        private void CreateList()
+        {
+            Figure = new BindableCollection<ShapeData>(da.GetShape());
+            GetFigure = new BindableCollection<ShapeData>(da.GetShape());
+            Figures = new BindableCollection<Figures>(da.CreateShape("Cube"));
+            AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
+        }
+
         private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param)
         {
             DataAccess da = new DataAccess();
@@ -155,12 +161,18 @@ namespace Geometry2.ViewModels
 
         private ShapeData Formatting(ShapeData data)
         {
+            #region Проверка обьёма
 
             if (data.MathematicalProperty == MathematicalProperty.Volume)
             {
                 //if (data.Letter.FirstOrDefault() == Convert.ToChar("∠"))
                 data.Letter = "V";
             }
+
+            #endregion
+
+            #region Проверка Угла
+
             if (data.MathematicalProperty == MathematicalProperty.Corner)
             {
                 if (data.Letter.FirstOrDefault() != Convert.ToChar("∠"))
@@ -169,9 +181,26 @@ namespace Geometry2.ViewModels
                     {
                         data.Letter = "AB";
                     }
+                    var len = data.Value.Length;
+
+                    data.Value = data.Value.Insert(len, "°");
                     data.Letter = data.Letter.Insert(0, "∠");
                 }
             }
+            if (data.MathematicalProperty != MathematicalProperty.Corner)
+            {
+                if (data.Letter.FirstOrDefault() == Convert.ToChar("∠"))
+                {
+                    data.Letter = data.Letter.Remove(0, 1);
+                }
+                if (data.Value.LastOrDefault() == Convert.ToChar("°"))
+                {
+                    var len = data.Value.Length - 1;
+                    data.Value = data.Value.Remove(len, 1);
+                }
+            }
+
+            #endregion
 
             return data;
         }
