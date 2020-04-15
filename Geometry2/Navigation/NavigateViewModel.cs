@@ -21,6 +21,11 @@ namespace Geometry2.Navigation
             Messenger.Default.Send<NavigateArgs>(new NavigateArgs(url));
         }
 
+        public void SendFigure(object shape)
+        {
+            Messenger.Default.Send<NavigeteShapes>(new NavigeteShapes(shape));
+        }
+
 
     }
 }

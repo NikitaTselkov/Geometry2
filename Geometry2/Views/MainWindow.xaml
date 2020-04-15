@@ -20,8 +20,8 @@
 
             <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="150 0 0 0">
 
-                <Button Content="Figure" Style="{StaticResource Button}" Command="{Binding GoToFigurePage}" />
-                <Button Content="Decision" Style="{StaticResource Button}" Command="{Binding GoToDecisionPage}" />
+                <RadioButton Content="Figure" Style="{StaticResource Button}" Command="{Binding GoToFigurePage}" IsChecked="{Binding IsGoToFigurePagePressed}"/>
+                <RadioButton Content="Decision" Style="{StaticResource Button}" Command="{Binding GoToDecisionPage}" IsChecked="{Binding IsGoToDecisionPagePressed}" />
 
             </DockPanel>
 

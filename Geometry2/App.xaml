@@ -20,6 +20,8 @@
 
                 <ResourceDictionary Source="Styles/DecisionStyles.xaml" />
 
+                <ResourceDictionary Source="Styles/SelectShape.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

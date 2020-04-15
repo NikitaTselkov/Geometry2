@@ -6,12 +6,15 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media.Media3D;
 using Caliburn.Micro;
+using GalaSoft.MvvmLight.Messaging;
 using Geometry2.Models;
 
 namespace Geometry2.ViewModels
 {
     public class DecisionViewModel : INotifyPropertyChanged
     {
+        readonly DataAccess da = new DataAccess();
+
         #region RelayCommand
 
         public RelayCommand AddShapeCommand { get; set; }
@@ -36,6 +39,8 @@ namespace Geometry2.ViewModels
 
         public BindableCollection<Figures> Figures { get; set; }
 
+        #region IsVisibility
+
         private Visibility _IsVisibility = Visibility.Collapsed;
         public Visibility IsVisibility
         {
@@ -58,15 +63,13 @@ namespace Geometry2.ViewModels
             }
         }
 
-
+        #endregion
+        
         public DecisionViewModel()
         {
-            DataAccess da = new DataAccess();
-            CreateShapes cs = new CreateShapes();
 
             Figure = new BindableCollection<ShapeData>(da.GetShape());
             GetFigure = new BindableCollection<ShapeData>(da.GetShape());
-            Figures = new BindableCollection<Figures>(cs.CreateCube());
             AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
 
             AddShapeCommand = new RelayCommand(AddShape);
@@ -76,9 +79,19 @@ namespace Geometry2.ViewModels
             AddShapeGivenCommand = new RelayCommand(AddShapeGiven);
             OpenInputGivenCommand = new RelayCommand(OpenInputGiven);
             FindButtonGivenCommand = new RelayCommand(FindButtonGiven);
+
+            NavigationSetup();
         }
 
         #region Methods
+
+        void NavigationSetup()
+        {
+            Messenger.Default.Register<Navigation.NavigeteShapes>(this, (x) =>
+            {
+                Figures = new BindableCollection<Figures>(da.CreateShape(x.Shape));
+            });
+        }
 
         public void FindButton(object param)
         {

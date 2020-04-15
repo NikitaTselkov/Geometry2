@@ -85,8 +85,21 @@
     <Compile Include="Models\MathematicalProperty.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\ShapeData.cs" />
+    <Compile Include="Navigation\NavigeteShapes.cs" />
     <Compile Include="ViewModels\DecisionViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\Figures\Cube.xaml.cs">
+      <DependentUpon>Cube.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Figures\Cylinder.xaml.cs">
+      <DependentUpon>Cylinder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Figures\Sphere.xaml.cs">
+      <DependentUpon>Sphere.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Figures\Trapeze.xaml.cs">
+      <DependentUpon>Trapeze.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\BackAdd.xaml.cs">
       <DependentUpon>BackAdd.xaml</DependentUpon>
     </Compile>
@@ -100,6 +113,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\SelectShape.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\ViewModelStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -109,6 +126,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Figure.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Figures\Cube.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Figures\Cylinder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Figures\Sphere.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Figures\Trapeze.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,5 +210,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Cube.png" />
+    <Resource Include="Image\Cylinder.png" />
+    <Resource Include="Image\Sphere.png" />
+    <Resource Include="Image\Trapeze.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

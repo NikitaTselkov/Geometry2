@@ -26,6 +26,11 @@ namespace Geometry2.Models
 
         public ShapeData GetDataShape(int id, MathematicalProperty mathematical = MathematicalProperty.Rib)
         {
+            if (id < 0)
+            {
+                throw new ArgumentException($"{id} не может быть меньше 0", nameof(id));
+            }
+
             ShapeData output = new ShapeData();
 
             output.ShapeId = id;
@@ -49,6 +54,21 @@ namespace Geometry2.Models
 
             return output;
 
+        }
+
+        public List<Figures> CreateShape(object input)
+        {
+            CreateShapes cs = new CreateShapes();
+
+            var result = new List<Figures>();
+            var value = input.ToString();
+
+            if (value == "Cube")
+            {
+               result = cs.CreateCube();
+            }
+
+            return result;
         }
 
     }
