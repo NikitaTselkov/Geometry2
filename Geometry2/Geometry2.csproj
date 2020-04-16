@@ -85,6 +85,7 @@
     <Compile Include="Models\MathematicalProperty.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\ShapeData.cs" />
+    <Compile Include="Models\TextBoxDropDownModel.cs" />
     <Compile Include="Navigation\NavigeteShapes.cs" />
     <Compile Include="ViewModels\DecisionViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -108,6 +109,9 @@
     </Compile>
     <Compile Include="Views\UserControls\GivenData.xaml.cs">
       <DependentUpon>GivenData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserControls\TextBoxDropDownHintControl.xaml.cs">
+      <DependentUpon>TextBoxDropDownHintControl.xaml</DependentUpon>
     </Compile>
     <Page Include="Styles\DecisionStyles.xaml">
       <SubType>Designer</SubType>
@@ -176,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\GivenData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\TextBoxDropDownHintControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

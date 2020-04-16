@@ -43,6 +43,24 @@ namespace Geometry2.Models
 
         }
 
+        public List<TextBoxDropDownModel> AddMathValues()
+        {
+            List<TextBoxDropDownModel> output = new List<TextBoxDropDownModel>();
+            List<string> values = new List<string>();
+
+            foreach (var item in GetDataMathProp())
+            {
+                values.Add(item.ToString());
+            }
+
+            for (int i = 0; i < values.Count; i++)
+            {
+                output.Add(new TextBoxDropDownModel() { Id = i, Name = values[i], Description = "" });
+            }
+
+            return output;
+        }
+
         public List<MathematicalProperty> GetDataMathProp()
         {
             List<MathematicalProperty> output = new List<MathematicalProperty>();

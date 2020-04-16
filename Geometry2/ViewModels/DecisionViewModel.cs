@@ -40,6 +40,8 @@ namespace Geometry2.ViewModels
 
         public BindableCollection<Figures> Figures { get; set; }
 
+        public List<TextBoxDropDownModel> MathValues { get; set; }
+
         #region IsVisibility
 
         private Visibility _IsVisibility = Visibility.Collapsed;
@@ -79,7 +81,6 @@ namespace Geometry2.ViewModels
 
             NavigationSetup();
             CreateList();
-
         }
 
         #region Methods
@@ -140,6 +141,7 @@ namespace Geometry2.ViewModels
             GetFigure = new BindableCollection<ShapeData>(da.GetShape());
             Figures = new BindableCollection<Figures>(da.CreateShape("Cube"));
             AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
+            MathValues = new List<TextBoxDropDownModel>(da.AddMathValues());
         }
 
         private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param)

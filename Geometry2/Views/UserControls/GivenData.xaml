@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:UC="clr-namespace:Geometry2.Views.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding Decision, Source={StaticResource Locator}}">
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="getFigure" Source="{Binding GetFigure}" />
@@ -45,16 +46,17 @@
 
                                                 <StackPanel Margin="0 20">
 
-                                                    <ComboBox Text="{Binding MathematicalProperty}" ItemsSource="{StaticResource AddWindowCollection}">
-                                                        <ComboBox.ItemTemplate>
-                                                            <DataTemplate>
-                                                                <TextBlock Text="{Binding}" />
-                                                            </DataTemplate>
-                                                        </ComboBox.ItemTemplate>
-                                                    </ComboBox>
+                                                    <UC:TextBoxDropDownHintControl
+                                                        x:Name="DropText"
+			                                            ItemsSource="{Binding MathValues}"
+			                                            HorizontalAlignment="Stretch"
+			                                            SelectedValuePath="Id"
+			                                            DisplayMemberPath="Name"
+			                                            Height="30" VerticalAlignment="Center">
+                                                    </UC:TextBoxDropDownHintControl>
 
-                                                     <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
-                                                     <TextBox Text="{Binding Value}"  Style="{StaticResource TextOutput}" />
+                                                    <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
+                                                    <TextBox Text="{Binding Value}"  Style="{StaticResource TextOutput}" />
                                                 </StackPanel>
 
                                             </ScrollViewer>
