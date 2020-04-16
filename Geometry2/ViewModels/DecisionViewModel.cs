@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -66,7 +67,7 @@ namespace Geometry2.ViewModels
         #endregion
         
         public DecisionViewModel()
-        {    
+        {
 
             AddShapeCommand = new RelayCommand(AddShape);
             OpenInputCommand = new RelayCommand(OpenInput);
@@ -78,6 +79,7 @@ namespace Geometry2.ViewModels
 
             NavigationSetup();
             CreateList();
+
         }
 
         #region Methods

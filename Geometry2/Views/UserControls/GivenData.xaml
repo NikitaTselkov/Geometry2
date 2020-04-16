@@ -6,7 +6,16 @@
              xmlns:UC="clr-namespace:Geometry2.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="getFigure" Source="{Binding GetFigure}" />
+        <CollectionViewSource x:Key="addWindow" Source="{Binding AddWindow}" />
+
+        <CompositeCollection x:Key="AddWindowCollection">
+            <CollectionContainer Collection="{Binding Source={StaticResource addWindow}}" />
+        </CompositeCollection>
+    </UserControl.Resources>
+
     <Grid Margin="20 80 20 0">
 
         <ScrollViewer VerticalScrollBarVisibility="Hidden">
@@ -26,6 +35,7 @@
                                         </TextBlock>
                                     </Button>
 
+
                                     <Viewbox Visibility="{Binding MyVisibility}">
                                         <Grid Margin="0 40 0 0">
 
@@ -33,13 +43,19 @@
 
                                             <ScrollViewer VerticalScrollBarVisibility="Hidden" MaxHeight="360" Width="360">
 
-                                                <ItemsControl ItemsSource="{Binding GetFigure}">
-                                                    <StackPanel Margin="0 20">
-                                                        <TextBox Text="{Binding MathematicalProperty}" Style="{StaticResource TextOutput}" />
-                                                        <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
-                                                        <TextBox Text="{Binding Value}"  Style="{StaticResource TextOutput}" />
-                                                    </StackPanel>
-                                                </ItemsControl>
+                                                <StackPanel Margin="0 20">
+
+                                                    <ComboBox Text="{Binding MathematicalProperty}" ItemsSource="{StaticResource AddWindowCollection}">
+                                                        <ComboBox.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock Text="{Binding}" />
+                                                            </DataTemplate>
+                                                        </ComboBox.ItemTemplate>
+                                                    </ComboBox>
+
+                                                     <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
+                                                     <TextBox Text="{Binding Value}"  Style="{StaticResource TextOutput}" />
+                                                </StackPanel>
 
                                             </ScrollViewer>
                                         </Grid>
@@ -50,6 +66,7 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+                
 
                 <Viewbox MaxWidth="110" MaxHeight="50" Margin="0 10 100 10" HorizontalAlignment="Left">
                     <Button Content="Add +" Style="{StaticResource AddButton}" Command="{Binding OpenInputGivenCommand}" />
