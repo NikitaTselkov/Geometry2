@@ -11,20 +11,19 @@ namespace Geometry2.Models
     public class DataAccess
     {
 
-        public List<ShapeData> GetShape(int total = 0)
+        public TextBoxDropDownModel AddMathProp(int id, string mathematical)
         {
-            List<ShapeData> output = new List<ShapeData>();
 
-            for (int i = 0; i < total; i++)
-            {
-                output.Add(GetDataShape(i + 1));
-            }
+            TextBoxDropDownModel output = new TextBoxDropDownModel();
+
+            output.Id = id;
+            output.Name = mathematical;
 
             return output;
-
         }
 
-        public ShapeData GetDataShape(int id, MathematicalProperty mathematical = MathematicalProperty.Rib)
+
+        public ShapeData GetDataShape(int id, string mathematical)
         {
             if (id < 0)
             {
@@ -32,12 +31,16 @@ namespace Geometry2.Models
             }
 
             ShapeData output = new ShapeData();
+            TextBoxDropDownModel textBox = new TextBoxDropDownModel();
+
+            textBox.Name = mathematical;
+            textBox.Id = id;
 
             output.ShapeId = id;
             output.Value = "0";
             output.Letter = "AB";
-            output.MathematicalProperty = mathematical;
-            output.MyVisibility = Visibility.Visible;
+            output.MathematicalProperty = textBox;
+            output.MyVisibility = Visibility.Collapsed;
 
             return output;
 

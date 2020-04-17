@@ -48,7 +48,7 @@
 
                                                     <UC:TextBoxDropDownHintControl
                                                         x:Name="DropText"
-			                                            ItemsSource="{Binding MathValues}"
+			                                            ItemsSource="{Binding AddWindow}"
 			                                            HorizontalAlignment="Stretch"
 			                                            SelectedValuePath="Id"
 			                                            DisplayMemberPath="Name"

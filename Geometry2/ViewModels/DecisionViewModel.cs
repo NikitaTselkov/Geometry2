@@ -36,15 +36,17 @@ namespace Geometry2.ViewModels
 
         public BindableCollection<ShapeData> GetFigure { get; set; }
 
-        public BindableCollection<MathematicalProperty> AddWindow { get; set; }
+        public List<TextBoxDropDownModel> AddWindow { get; set; }
 
         public BindableCollection<Figures> Figures { get; set; }
 
-        public List<TextBoxDropDownModel> MathValues { get; set; }
+        public string MathProp { get; set; }
+
+        private List<TextBoxDropDownModel> MathProps { get; set; }
 
         #region IsVisibility
 
-        private Visibility _IsVisibility = Visibility.Collapsed;
+      private Visibility _IsVisibility = Visibility.Collapsed;
         public Visibility IsVisibility
         {
             get { return _IsVisibility; }
@@ -81,7 +83,9 @@ namespace Geometry2.ViewModels
 
             NavigationSetup();
             CreateList();
+
         }
+
 
         #region Methods
 
@@ -98,14 +102,14 @@ namespace Geometry2.ViewModels
         {
            var par = (int)param - 1;
 
-            FindButtonHelp(Figure, par);
+            FindButtonHelp(Figure, par, MathProps);
         }
 
         public void FindButtonGiven(object param)
         {
             var par = (int)param - 1;
 
-            FindButtonHelp(GetFigure, par);
+            FindButtonHelp(GetFigure, par, MathProps);
         }
 
 
@@ -121,13 +125,13 @@ namespace Geometry2.ViewModels
 
         public void AddShape(object param)
         {
-            AddShapeHelp(Figure, param);
+            AddShapeHelp(Figure, param, MathProps);
             IsVisibility = Visibility.Collapsed;
         }
 
         public void AddShapeGiven(object param)
         {
-            AddShapeHelp(GetFigure, param);
+            AddShapeHelp(GetFigure, param, MathProps);
             IsVisibility2 = Visibility.Collapsed;
         }
 
@@ -137,14 +141,14 @@ namespace Geometry2.ViewModels
 
         private void CreateList()
         {
-            Figure = new BindableCollection<ShapeData>(da.GetShape());
-            GetFigure = new BindableCollection<ShapeData>(da.GetShape());
+            Figure = new BindableCollection<ShapeData>();
+            GetFigure = new BindableCollection<ShapeData>();
             Figures = new BindableCollection<Figures>(da.CreateShape("Cube"));
-            AddWindow = new BindableCollection<MathematicalProperty>(da.GetDataMathProp());
-            MathValues = new List<TextBoxDropDownModel>(da.AddMathValues());
+            AddWindow = new List<TextBoxDropDownModel>(da.AddMathValues());
+            MathProps = new List<TextBoxDropDownModel>();
         }
 
-        private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param)
+        private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param, List<TextBoxDropDownModel> props)
         {
             DataAccess da = new DataAccess();
 
@@ -155,19 +159,22 @@ namespace Geometry2.ViewModels
                 maxId = Collection.Max(x => x.ShapeId);
             }
 
-             var data = da.GetDataShape(maxId + 1, (MathematicalProperty)param);
+            var data = da.GetDataShape(maxId + 1, param.ToString());
+            var textProp = da.AddMathProp(maxId + 1, param.ToString());
 
             data = Formatting(data);
 
             Collection.Add(data);
+            props.Add(textProp);
 
         }
 
         private ShapeData Formatting(ShapeData data)
         {
+
             #region Проверка обьёма
 
-            if (data.MathematicalProperty == MathematicalProperty.Volume)
+            if (data.MathematicalProperty.Name == "Volume")
             {
                 //if (data.Letter.FirstOrDefault() == Convert.ToChar("∠"))
                 data.Letter = "V";
@@ -177,7 +184,7 @@ namespace Geometry2.ViewModels
 
             #region Проверка Угла
 
-            if (data.MathematicalProperty == MathematicalProperty.Corner)
+            if (data.MathematicalProperty.Name == "Corner")
             {
                 if (data.Letter.FirstOrDefault() != Convert.ToChar("∠"))
                 {
@@ -191,7 +198,7 @@ namespace Geometry2.ViewModels
                     data.Letter = data.Letter.Insert(0, "∠");
                 }
             }
-            if (data.MathematicalProperty != MathematicalProperty.Corner)
+            if (data.MathematicalProperty.Name != "Corner")
             {
                 if (data.Letter.FirstOrDefault() == Convert.ToChar("∠"))
                 {
@@ -209,16 +216,35 @@ namespace Geometry2.ViewModels
             return data;
         }
 
-        private void FindButtonHelp(BindableCollection<ShapeData> Collection, int par)
+        private void FindButtonHelp(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props)
         {
+            var textBox = new TextBoxDropDownModel();
 
             var shapeData = Collection[par];
 
+            var Prop = props[par];
+
+            Prop = shapeData.MathematicalProperty;
+
+
             shapeData.MyVisibility = VisCheck(shapeData.MyVisibility);
 
-            Formatting(shapeData);
+            if (shapeData.MyVisibility == Visibility.Collapsed)
+            {
+                textBox.Name = MathProp;
 
-            Collection[par] = shapeData;
+                MathProp = textBox.Name;
+
+                shapeData.MathematicalProperty.Name = MathProp;
+
+                Formatting(shapeData);
+
+                Collection[par] = shapeData;
+
+                props[par] = textBox;
+            }
+
+            MathProp = Prop.Name;
 
             Collection.Refresh();
         }

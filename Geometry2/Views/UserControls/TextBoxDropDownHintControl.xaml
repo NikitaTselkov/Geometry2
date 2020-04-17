@@ -10,7 +10,8 @@
 
     <Grid>
         <TextBox Panel.ZIndex="2" 
-		         x:Name="tbxInputData"></TextBox>
+		         x:Name="tbxInputData"
+                 Text="{Binding MathProp}"></TextBox>
         <ComboBox 
 			SelectionChanged="LbList_SelectionChanged"
 			x:Name="lbList"

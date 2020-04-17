@@ -17,7 +17,7 @@ namespace Geometry2.Models
 
         public string Letter { get; set; }
 
-        public MathematicalProperty MathematicalProperty { get; set; }
+        public TextBoxDropDownModel MathematicalProperty { get; set; }
 
         public Visibility MyVisibility { get; set; }
 

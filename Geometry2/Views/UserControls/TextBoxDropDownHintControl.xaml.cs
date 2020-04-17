@@ -165,20 +165,21 @@ namespace Geometry2.Views.UserControls
 				}
 			}
 
-			public string Text
+		public string Text
+		{
+			get
 			{
-				get
-				{
-					return tbxInputData.Text;
-				}
-				set
-				{
-					tbxInputData.Text = value;
-					lbList.IsDropDownOpen = false;
-				}
+				return tbxInputData.Text;
 			}
+			set
+			{
+				tbxInputData.Text = value;
+				lbList.IsDropDownOpen = false;
+			}
+		}
 
-			public bool IsReadOnly
+
+		public bool IsReadOnly
 			{
 				get
 				{
@@ -191,7 +192,7 @@ namespace Geometry2.Views.UserControls
 			}
 
 
-			public new Brush Background
+		public new Brush Background
 			{
 				get
 				{
@@ -203,13 +204,13 @@ namespace Geometry2.Views.UserControls
 				}
 			}
 
-			public void Clear()
-			{
-				lbList.SelectedIndex = -1;
-				tbxInputData.Text = "";
-			}
+		//public void Clear()
+		//{
+		//	lbList.SelectedIndex = -1;
+		//	tbxInputData.Text = "";
+		//}
 
-			public TextBox getTextBoxItem()
+		public TextBox getTextBoxItem()
 			{
 				return tbxInputData;
 			}

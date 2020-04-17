@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Geometry2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,6 @@ namespace Geometry2.Views.UserControls
         {
             InitializeComponent();
         }
+
     }
 }

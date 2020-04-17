@@ -21,7 +21,7 @@
                                         <TextBlock>
                                                 <Run Text="{Binding Letter}" Foreground="{StaticResource DarkBlue}" />
                                                 <Run Text="-" />
-                                                <Run Text="{Binding MathematicalProperty}" />
+                                                <Run Text="{Binding MathematicalProperty.Name}" />
                                         </TextBlock>
                                     </Button>
 
@@ -34,7 +34,16 @@
 
                                                 <ItemsControl ItemsSource="{Binding Figure}">
                                                     <StackPanel Margin="0 20">
-                                                        <TextBox Text="{Binding MathematicalProperty}" Style="{StaticResource TextOutput}" />
+
+                                                        <UC:TextBoxDropDownHintControl
+                                                        x:Name="DropText"
+			                                            ItemsSource="{Binding AddWindow}"
+			                                            HorizontalAlignment="Stretch"
+			                                            SelectedValuePath="Id"
+			                                            DisplayMemberPath="Name"
+			                                            Height="30" VerticalAlignment="Center">
+                                                        </UC:TextBoxDropDownHintControl>
+
                                                         <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
                                                     </StackPanel>
                                                 </ItemsControl>

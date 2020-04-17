@@ -13,5 +13,10 @@ namespace Geometry2.Models
 		public string Description { get; set; }
 
 		public TextBoxDropDownModel() { }
+
+		public override string ToString()
+		{
+			return Name;
+		}
 	}
 }
