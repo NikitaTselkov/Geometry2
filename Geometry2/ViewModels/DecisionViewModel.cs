@@ -42,6 +42,8 @@ namespace Geometry2.ViewModels
 
         public string MathProp { get; set; }
 
+        public string MathPropFind { get; set; }
+
         private List<TextBoxDropDownModel> MathProps { get; set; }
 
         #region IsVisibility
@@ -102,14 +104,14 @@ namespace Geometry2.ViewModels
         {
            var par = (int)param - 1;
 
-            FindButtonHelp(Figure, par, MathProps);
+           MathPropFind = FindButtonHelp(Figure, par, MathProps, MathPropFind);
         }
 
         public void FindButtonGiven(object param)
         {
             var par = (int)param - 1;
 
-            FindButtonHelp(GetFigure, par, MathProps);
+          MathProp = FindButtonHelp(GetFigure, par, MathProps, MathProp);
         }
 
 
@@ -216,7 +218,8 @@ namespace Geometry2.ViewModels
             return data;
         }
 
-        private void FindButtonHelp(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props)
+        private string FindButtonHelp(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props,
+            string MathProp)
         {
             var textBox = new TextBoxDropDownModel();
 
@@ -226,14 +229,11 @@ namespace Geometry2.ViewModels
 
             Prop = shapeData.MathematicalProperty;
 
-
-            shapeData.MyVisibility = VisCheck(shapeData.MyVisibility);
+            СheckVisibility(Collection, par);
 
             if (shapeData.MyVisibility == Visibility.Collapsed)
             {
                 textBox.Name = MathProp;
-
-                MathProp = textBox.Name;
 
                 shapeData.MathematicalProperty.Name = MathProp;
 
@@ -244,11 +244,24 @@ namespace Geometry2.ViewModels
                 props[par] = textBox;
             }
 
-            MathProp = Prop.Name;
-
             Collection.Refresh();
+
+            return Prop.Name;
+     
         }
 
+        private void СheckVisibility(BindableCollection<ShapeData> Collection, int par)
+        {
+            for (int i = 0; i < Collection.Count; i++)
+            {
+                if (i == par)
+                {
+                    Collection[par].MyVisibility = VisCheck(Collection[par].MyVisibility);
+                    continue;
+                }
+                Collection[i].MyVisibility = Visibility.Collapsed;
+            }
+        }
 
         private Visibility VisCheck(Visibility IsVisible)
         {

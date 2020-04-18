@@ -41,7 +41,8 @@
 			                                            HorizontalAlignment="Stretch"
 			                                            SelectedValuePath="Id"
 			                                            DisplayMemberPath="Name"
-			                                            Height="30" VerticalAlignment="Center">
+			                                            Height="30" VerticalAlignment="Center"
+                                                        CurrentText="{Binding MathPropFind}">
                                                         </UC:TextBoxDropDownHintControl>
 
                                                         <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />

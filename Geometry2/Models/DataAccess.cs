@@ -58,7 +58,7 @@ namespace Geometry2.Models
 
             for (int i = 0; i < values.Count; i++)
             {
-                output.Add(new TextBoxDropDownModel() { Id = i, Name = values[i], Description = "" });
+                output.Add(new TextBoxDropDownModel() { Id = i, Name = values[i]});
             }
 
             return output;

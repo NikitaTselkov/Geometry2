@@ -6,12 +6,13 @@
              xmlns:local="clr-namespace:Geometry2.Views.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
+             x:Name="UserC"
              DataContext="{Binding Decision, Source={StaticResource Locator}}">
 
     <Grid>
         <TextBox Panel.ZIndex="2" 
 		         x:Name="tbxInputData"
-                 Text="{Binding MathProp}"></TextBox>
+                 Text="{Binding ElementName=UserC, Path=CurrentText}"></TextBox>
         <ComboBox 
 			SelectionChanged="LbList_SelectionChanged"
 			x:Name="lbList"
