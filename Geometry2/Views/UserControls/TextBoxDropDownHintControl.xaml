@@ -18,6 +18,7 @@
                  TextAlignment="Center"
                  FontSize="45"
                  Width="340"
+                 SelectionBrush="{StaticResource DarkBlue}"
                  Text="{Binding ElementName=UserC, Path=CurrentText}"></TextBox>
         <ComboBox 
 			SelectionChanged="LbList_SelectionChanged"
