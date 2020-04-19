@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:UC="clr-namespace:Geometry2.Views.UserControls"
              mc:Ignorable="d" 
+             x:Name="UserC"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Margin="20 80 20 0">
 
@@ -18,11 +19,13 @@
                             <Viewbox>
                                 <StackPanel>
                                     <Button Style="{StaticResource MathButtonOutput}" Command="{Binding ElementName=MyItems1, Path=DataContext.FindButtonCommand}" CommandParameter="{Binding ShapeId}">
-                                        <TextBlock>
+                                        <Viewbox MaxHeight="60">
+                                            <TextBlock>
                                                 <Run Text="{Binding Letter}" Foreground="{StaticResource DarkBlue}" />
                                                 <Run Text="-" />
                                                 <Run Text="{Binding MathematicalProperty.Name}" />
-                                        </TextBlock>
+                                            </TextBlock>
+                                        </Viewbox>
                                     </Button>
 
                                     <Viewbox Visibility="{Binding MyVisibility}">
@@ -41,11 +44,20 @@
 			                                            HorizontalAlignment="Stretch"
 			                                            SelectedValuePath="Id"
 			                                            DisplayMemberPath="Name"
-			                                            Height="30" VerticalAlignment="Center"
+			                                            Height="70" VerticalAlignment="Center"
                                                         CurrentText="{Binding MathPropFind}">
                                                         </UC:TextBoxDropDownHintControl>
 
-                                                        <TextBox Text="{Binding Letter}" Style="{StaticResource TextOutput}" Foreground="{StaticResource DarkBlue}" />
+                                                        <UC:TextBoxDropDownHintControl
+                                                        Margin="0 10 0 0"
+			                                            ItemsSource="{Binding ElementName=UserC, Path=DataContext.Figures}"
+			                                            HorizontalAlignment="Stretch"
+			                                            SelectedValuePath="Id"
+			                                            DisplayMemberPath="Name"
+			                                            Height="70" VerticalAlignment="Center"
+                                                        CurrentText="{Binding FindLetter}">
+                                                        </UC:TextBoxDropDownHintControl>
+
                                                     </StackPanel>
                                                 </ItemsControl>
 

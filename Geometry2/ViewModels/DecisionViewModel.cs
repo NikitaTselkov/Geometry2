@@ -44,7 +44,14 @@ namespace Geometry2.ViewModels
 
         public string MathPropFind { get; set; }
 
+        public string GivenLetter { get; set; }
+
+        public string FindLetter { get; set; }
+
+
         private List<TextBoxDropDownModel> MathProps { get; set; }
+
+        private List<TextBoxDropDownModel> LetterProps { get; set; }
 
         #region IsVisibility
 
@@ -105,13 +112,15 @@ namespace Geometry2.ViewModels
            var par = (int)param - 1;
 
            MathPropFind = FindButtonHelp(Figure, par, MathProps, MathPropFind);
+           FindLetter = SetLetter(Figure, par, LetterProps, FindLetter);
         }
 
         public void FindButtonGiven(object param)
         {
             var par = (int)param - 1;
 
-          MathProp = FindButtonHelp(GetFigure, par, MathProps, MathProp);
+            MathProp = FindButtonHelp(GetFigure, par, MathProps, MathProp);
+            GivenLetter = SetLetter(GetFigure, par, LetterProps, GivenLetter);
         }
 
 
@@ -127,13 +136,13 @@ namespace Geometry2.ViewModels
 
         public void AddShape(object param)
         {
-            AddShapeHelp(Figure, param, MathProps);
+            AddShapeHelp(Figure, param, MathProps, LetterProps);
             IsVisibility = Visibility.Collapsed;
         }
 
         public void AddShapeGiven(object param)
         {
-            AddShapeHelp(GetFigure, param, MathProps);
+            AddShapeHelp(GetFigure, param, MathProps, LetterProps);
             IsVisibility2 = Visibility.Collapsed;
         }
 
@@ -148,9 +157,11 @@ namespace Geometry2.ViewModels
             Figures = new BindableCollection<Figures>(da.CreateShape("Cube"));
             AddWindow = new List<TextBoxDropDownModel>(da.AddMathValues());
             MathProps = new List<TextBoxDropDownModel>();
+            LetterProps = new List<TextBoxDropDownModel>();
         }
 
-        private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param, List<TextBoxDropDownModel> props)
+        private void AddShapeHelp(BindableCollection<ShapeData> Collection, object param,
+            List<TextBoxDropDownModel> props, List<TextBoxDropDownModel> Letterprops)
         {
             DataAccess da = new DataAccess();
 
@@ -162,12 +173,14 @@ namespace Geometry2.ViewModels
             }
 
             var data = da.GetDataShape(maxId + 1, param.ToString());
-            var textProp = da.AddMathProp(maxId + 1, param.ToString());
+            var textProp = da.AddTextBoxProp(maxId + 1, param.ToString());
+            var textLetterProp = da.AddTextBoxProp(maxId + 1, "AB");
 
             data = Formatting(data);
 
             Collection.Add(data);
             props.Add(textProp);
+            Letterprops.Add(textLetterProp);
 
         }
 
@@ -178,7 +191,6 @@ namespace Geometry2.ViewModels
 
             if (data.MathematicalProperty.Name == "Volume")
             {
-                //if (data.Letter.FirstOrDefault() == Convert.ToChar("∠"))
                 data.Letter = "V";
             }
 
@@ -196,7 +208,10 @@ namespace Geometry2.ViewModels
                     }
                     var len = data.Value.Length;
 
-                    data.Value = data.Value.Insert(len, "°");
+                    if (data.Value.LastOrDefault() != Convert.ToChar("°"))
+                    {
+                        data.Value = data.Value.Insert(len, "°");
+                    }
                     data.Letter = data.Letter.Insert(0, "∠");
                 }
             }
@@ -216,6 +231,35 @@ namespace Geometry2.ViewModels
             #endregion
 
             return data;
+        }
+
+        private string SetLetter(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props,
+            string Letter)
+        {
+            var textBox = new TextBoxDropDownModel();
+
+            var shapeData = Collection[par];
+
+            var Prop = props[par];
+
+            Prop.Name = shapeData.Letter;
+
+            if (shapeData.MyVisibility == Visibility.Collapsed)
+            {
+                textBox.Name = Letter;
+
+                shapeData.Letter = Letter;
+
+                Formatting(shapeData);
+
+                Collection[par] = shapeData;
+
+                props[par] = textBox;
+            }
+
+            Collection.Refresh();
+
+            return Prop.Name;
         }
 
         private string FindButtonHelp(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props,

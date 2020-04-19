@@ -12,23 +12,33 @@
     <Grid>
         <TextBox Panel.ZIndex="2" 
 		         x:Name="tbxInputData"
+                 Background="{StaticResource DarkDarkBlack}"
+                 BorderThickness="0"
+                 Foreground="{StaticResource DarkWhite}"
+                 TextAlignment="Center"
+                 FontSize="45"
+                 Width="340"
                  Text="{Binding ElementName=UserC, Path=CurrentText}"></TextBox>
         <ComboBox 
 			SelectionChanged="LbList_SelectionChanged"
 			x:Name="lbList"
-			Height="25"
+			Height="60"
+            Width="340"
+            Foreground="{StaticResource DarkWhite}"
+            Background="{StaticResource DarkDarkBlack}"
+            FontSize="35"
 			Panel.ZIndex="1">
             <ComboBox.ItemContainerStyle>
                 <Style TargetType="ComboBoxItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ComboBoxItem">
-                                <Grid x:Name="gd" Width="Auto" ShowGridLines="False">
+                                <Grid x:Name="gd" Width="Auto" ShowGridLines="False" Background="{StaticResource DarkDarkBlack}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="100"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding DisplayMemberPath}"/>
+                                    <TextBlock Height="60" Grid.Column="0" Text="{Binding DisplayMemberPath}" />
                                     <TextBlock 
 			                        	Margin="0, 0, 5, 0"
 			                        	Grid.Column="1"
@@ -40,14 +50,20 @@
                                     <Trigger Property="ComboBoxItem.IsSelected" Value="True">
                                         <Setter TargetName="gd"  Property="Background" Value="Gray"></Setter>
                                         <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                                     </Trigger>
                                     <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
-                                        <Setter TargetName="gd"  Property="Background" Value="Blue"></Setter>
+                                        <Setter TargetName="gd"  Property="Background" Value="{StaticResource DarkBlack}"></Setter>
                                         <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                                     </Trigger>
                                     <Trigger Property="ComboBoxItem.IsHighlighted" Value="True">
-                                        <Setter TargetName="gd"  Property="Background" Value="Blue"></Setter>
+                                        <Setter TargetName="gd"  Property="Background" Value="{StaticResource DarkBlack}"></Setter>
                                         <Setter TargetName="gd"  Property="TextElement.Foreground" Value="White"></Setter>
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                                    </Trigger>
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>

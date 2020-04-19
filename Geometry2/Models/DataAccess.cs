@@ -11,13 +11,13 @@ namespace Geometry2.Models
     public class DataAccess
     {
 
-        public TextBoxDropDownModel AddMathProp(int id, string mathematical)
+        public TextBoxDropDownModel AddTextBoxProp(int id, string name)
         {
 
             TextBoxDropDownModel output = new TextBoxDropDownModel();
 
             output.Id = id;
-            output.Name = mathematical;
+            output.Name = name;
 
             return output;
         }

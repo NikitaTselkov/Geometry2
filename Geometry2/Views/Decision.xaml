@@ -56,8 +56,7 @@
                                          StrokeStartLineCap="Round"
                                          StrokeEndLineCap="Round"
                                          StrokeDashArray="{Binding StrokeDashArray}"
-                                         StrokeDashCap="Round"
-                                                                             
+                                         StrokeDashCap="Round"                                   
                                     />
 
                                 </Grid>
