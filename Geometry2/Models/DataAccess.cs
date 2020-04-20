@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Caliburn.Micro;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Geometry2.Models
 {
@@ -99,8 +101,44 @@ namespace Geometry2.Models
                     break;
             }
 
-
             return result;
+        }
+
+        public BindableCollection<Figures> BrushLine(BindableCollection<ShapeData> givenDatas,
+            BindableCollection<ShapeData> findDatas, string brush1, string brush2, BindableCollection<Figures> figures)
+        {
+            BrushConverter brushConverter = new BrushConverter();
+
+            for (var i = 0; i < figures.Count; i++)
+            {
+                figures[i].Color = brushConverter.ConvertFromString("#DCE1E4") as Brush;
+            }
+
+            foreach (var item in givenDatas)
+            {
+                for (var i = 0; i < figures.Count; i++)
+                {
+                    if (item.Letter == figures[i].Name)
+                    {
+                        figures[i].Color = brushConverter.ConvertFromString(brush1) as Brush;
+                    }
+                }
+            }
+
+            foreach (var item in findDatas)
+            {
+                for (var i = 0; i < figures.Count; i++)
+                {
+                    if (item.Letter == figures[i].Name)
+                    {
+                        figures[i].Color = brushConverter.ConvertFromString(brush2) as Brush;
+                    }
+                }
+            }
+
+            figures.Refresh();
+
+            return figures;
         }
 
     }

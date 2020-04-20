@@ -51,7 +51,7 @@
                                          Y1="{Binding PointY1}"
                                          X2="{Binding PointX2}"
                                          Y2="{Binding PointY2}"
-                                         Stroke="{StaticResource DarkWhite}"
+                                         Stroke="{Binding Color}"
                                          StrokeThickness="10"
                                          StrokeStartLineCap="Round"
                                          StrokeEndLineCap="Round"

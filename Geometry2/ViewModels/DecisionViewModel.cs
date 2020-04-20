@@ -259,6 +259,8 @@ namespace Geometry2.ViewModels
 
             Collection.Refresh();
 
+            Figures = da.BrushLine(GetFigure, Figure, "#5983EB", "#33AF63", Figures);
+
             return Prop.Name;
         }
 

@@ -82,7 +82,19 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetProperty="FontSize"
-                                                     From="50" To="45" Duration="0:0:0.1" AutoReverse="True">
+                                                     From="50" To="45" Duration="0:0:0.1">
+                                        <DoubleAnimation.EasingFunction>
+                                            <PowerEase Power="1" EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="FontSize"
+                                                     From="45" To="50" Duration="0:0:0.1">
                                         <DoubleAnimation.EasingFunction>
                                             <PowerEase Power="1" EasingMode="EaseInOut" />
                                         </DoubleAnimation.EasingFunction>

@@ -39,7 +39,19 @@
                             <BeginStoryboard>
                                 <Storyboard>
                                     <DoubleAnimation Storyboard.TargetName="Content" Storyboard.TargetProperty="Width"
-                                                     To="250" Duration="0:0:0.09" AutoReverse="True">
+                                                     To="250" Duration="0:0:0.09">
+                                        <DoubleAnimation.EasingFunction>
+                                            <PowerEase Power="1" EasingMode="EaseInOut" />
+                                        </DoubleAnimation.EasingFunction>
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="Content" Storyboard.TargetProperty="Width"
+                                                     From="250" Duration="0:0:0.09">
                                         <DoubleAnimation.EasingFunction>
                                             <PowerEase Power="1" EasingMode="EaseInOut" />
                                         </DoubleAnimation.EasingFunction>
