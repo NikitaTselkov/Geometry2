@@ -19,6 +19,8 @@ namespace Geometry2.Navigation
 
             SimpleIoc.Default.Register<ViewModels.DecisionViewModel>();
 
+            SimpleIoc.Default.Register<ViewModels.DecisionAnswerViewModel>();
+
         }
 
         public ViewModels.MainViewModel Main
@@ -34,6 +36,14 @@ namespace Geometry2.Navigation
             get
             {
                 return ServiceLocator.Current.GetInstance<ViewModels.DecisionViewModel>();
+            }
+        }
+
+        public ViewModels.DecisionAnswerViewModel DecisionAnswer
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ViewModels.DecisionAnswerViewModel>();
             }
         }
 

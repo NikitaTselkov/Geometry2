@@ -48,15 +48,10 @@ namespace Geometry2.Models
 
         }
 
-        public List<TextBoxDropDownModel> AddMathValues()
+        public List<TextBoxDropDownModel> AddRibMathValues()
         {
             List<TextBoxDropDownModel> output = new List<TextBoxDropDownModel>();
-            List<string> values = new List<string>();
-
-            foreach (var item in GetDataMathProp())
-            {
-                values.Add(item.ToString());
-            }
+            List<string> values = ConvertEnumInString();
 
             for (int i = 0; i < values.Count; i++)
             {
@@ -64,6 +59,18 @@ namespace Geometry2.Models
             }
 
             return output;
+        }
+
+        private List<string> ConvertEnumInString()
+        {
+            List<string> values = new List<string>();
+
+            foreach (var item in GetDataMathProp())
+            {
+                values.Add(item.ToString());
+            }
+
+            return values;
         }
 
         public List<MathematicalProperty> GetDataMathProp()

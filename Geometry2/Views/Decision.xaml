@@ -7,7 +7,7 @@
       xmlns:UC="clr-namespace:Geometry2.Views.UserControls"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Decision"
+      Title="Given"
       DataContext="{Binding Decision, Source={StaticResource Locator}}">
 
     <Grid Background="{StaticResource DarkDarkBlack}">
@@ -37,16 +37,17 @@
         <Grid Grid.Row="1" Grid.Column="3" Background="{StaticResource DarkBlack}">
 
             <Viewbox>
-                <Canvas Width="400" Height="400">
-                    <ItemsControl ItemsSource="{Binding Figures}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
+                <Grid>
+                    <Canvas Width="400" Height="400">
+                        <ItemsControl ItemsSource="{Binding Figures}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
 
-                                <Grid>
+                                    <Grid>
 
-                                    <Label Content="{Binding Letter}" FontSize="30" Margin="{Binding LetterPosition}" Foreground="{StaticResource DarkBlue}" />
+                                        <Label Content="{Binding Letter}" FontSize="30" Margin="{Binding LetterPosition}" Foreground="{StaticResource DarkBlue}" />
 
-                                    <Line
+                                        <Line
                                          X1="{Binding PointX1}"
                                          Y1="{Binding PointY1}"
                                          X2="{Binding PointX2}"
@@ -57,16 +58,26 @@
                                          StrokeEndLineCap="Round"
                                          StrokeDashArray="{Binding StrokeDashArray}"
                                          StrokeDashCap="Round"                                   
-                                    />
+                                        />
 
-                                </Grid>
+                                    </Grid>
 
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Canvas>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Canvas>
+
+                    <Button
+                        VerticalAlignment="Bottom"
+                        HorizontalAlignment="Right"
+                        Content="Decision"
+                        Style="{StaticResource ButtonDecision}"
+                        Command="{Binding AnswerButton}"
+                        Margin="20 0 -30 10"
+                    />
+                    
+                </Grid>
             </Viewbox>
-
 
         </Grid>
 
@@ -78,7 +89,14 @@
 
         </Grid>
 
+        <Grid Grid.ColumnSpan="6" Grid.RowSpan="3"  Visibility="{Binding IsVisibilityAnswer}">
 
+            <Grid Background="Black" Margin="-200" Opacity="0.6" Width="2100" Height="2100" />
+            <Viewbox MaxWidth="1000" MaxHeight="720" Margin="0 30 0 80" >
+                <UC:DecisionAnswer  Margin="0" />
+            </Viewbox>
 
+        </Grid>
+        
     </Grid>
 </Page>

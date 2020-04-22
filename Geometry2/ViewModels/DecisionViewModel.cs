@@ -30,13 +30,15 @@ namespace Geometry2.ViewModels
 
         public RelayCommand FindButtonGivenCommand { get; set; }
 
+        public RelayCommand AnswerButton { get; set; }
+
         #endregion
 
-        public BindableCollection<ShapeData> Figure { get; set; }
+        public BindableCollection<ShapeData> FindInput { get; set; }
 
-        public BindableCollection<ShapeData> GetFigure { get; set; }
+        public BindableCollection<ShapeData> GivenInput { get; set; }
 
-        public List<TextBoxDropDownModel> AddWindow { get; set; }
+        public List<TextBoxDropDownModel> MathProperties { get; set; }
 
         public BindableCollection<Figures> Figures { get; set; }
 
@@ -77,18 +79,37 @@ namespace Geometry2.ViewModels
             }
         }
 
+        private Visibility _IsVisibilityAnswer = Visibility.Collapsed;
+        public Visibility IsVisibilityAnswer
+        {
+            get { return _IsVisibilityAnswer; }
+            set
+            {
+                _IsVisibilityAnswer = value;
+                this.OnPropertyChanged();
+            }
+        }
+
         #endregion
         
         public DecisionViewModel()
         {
 
+            /// <summary>
+            /// FindCommands
+            /// </summary>
             AddShapeCommand = new RelayCommand(AddShape);
             OpenInputCommand = new RelayCommand(OpenInput);
             FindButtonCommand = new RelayCommand(FindButton);
 
+            /// <summary>
+            /// GivenCommands
+            /// </summary>
             AddShapeGivenCommand = new RelayCommand(AddShapeGiven);
             OpenInputGivenCommand = new RelayCommand(OpenInputGiven);
             FindButtonGivenCommand = new RelayCommand(FindButtonGiven);
+
+            AnswerButton = new RelayCommand(AnswerButtonLogic);
 
             NavigationSetup();
             CreateList();
@@ -111,18 +132,22 @@ namespace Geometry2.ViewModels
         {
            var par = (int)param - 1;
 
-           MathPropFind = FindButtonHelp(Figure, par, MathProps, MathPropFind);
-           FindLetter = SetLetter(Figure, par, LetterProps, FindLetter);
+           MathPropFind = FindButtonHelp(FindInput, par, MathProps, MathPropFind);
+           FindLetter = SetLetter(FindInput, par, LetterProps, FindLetter);
         }
 
         public void FindButtonGiven(object param)
         {
             var par = (int)param - 1;
 
-            MathProp = FindButtonHelp(GetFigure, par, MathProps, MathProp);
-            GivenLetter = SetLetter(GetFigure, par, LetterProps, GivenLetter);
+            MathProp = FindButtonHelp(GivenInput, par, MathProps, MathProp);
+            GivenLetter = SetLetter(GivenInput, par, LetterProps, GivenLetter);
         }
 
+        public void AnswerButtonLogic(object param)
+        {
+            IsVisibilityAnswer = VisCheck(IsVisibilityAnswer);
+        }
 
         public void OpenInput(object param)
         {
@@ -136,13 +161,13 @@ namespace Geometry2.ViewModels
 
         public void AddShape(object param)
         {
-            AddShapeHelp(Figure, param, MathProps, LetterProps);
+            AddShapeHelp(FindInput, param, MathProps, LetterProps);
             IsVisibility = Visibility.Collapsed;
         }
 
         public void AddShapeGiven(object param)
         {
-            AddShapeHelp(GetFigure, param, MathProps, LetterProps);
+            AddShapeHelp(GivenInput, param, MathProps, LetterProps);
             IsVisibility2 = Visibility.Collapsed;
         }
 
@@ -152,10 +177,10 @@ namespace Geometry2.ViewModels
 
         private void CreateList()
         {
-            Figure = new BindableCollection<ShapeData>();
-            GetFigure = new BindableCollection<ShapeData>();
+            FindInput = new BindableCollection<ShapeData>();
+            GivenInput = new BindableCollection<ShapeData>();
             Figures = new BindableCollection<Figures>(da.CreateShape("Cube"));
-            AddWindow = new List<TextBoxDropDownModel>(da.AddMathValues());
+            MathProperties = new List<TextBoxDropDownModel>(da.AddRibMathValues());
             MathProps = new List<TextBoxDropDownModel>();
             LetterProps = new List<TextBoxDropDownModel>();
         }
@@ -259,7 +284,7 @@ namespace Geometry2.ViewModels
 
             Collection.Refresh();
 
-            Figures = da.BrushLine(GetFigure, Figure, "#5983EB", "#33AF63", Figures);
+            Figures = da.BrushLine(GivenInput, FindInput, "#5983EB", "#33AF63", Figures);
 
             return Prop.Name;
         }

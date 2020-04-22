@@ -26,6 +26,11 @@ namespace Geometry2.Navigation
             Messenger.Default.Send<NavigeteShapes>(new NavigeteShapes(shape));
         }
 
+        public void SendDataDecision(object data)
+        {
+            Messenger.Default.Send<NavigateDataDecision>(new NavigateDataDecision(data));
+        }
+
 
     }
 }

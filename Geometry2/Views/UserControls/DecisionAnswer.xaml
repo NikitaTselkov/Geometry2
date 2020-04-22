@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Geometry2.Views.UserControls.DecisionAnswer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Geometry2.Views.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1000"
+             x:Name="UserC"
+             DataContext="{Binding DecisionAnswer, Source={StaticResource Locator}}">
+    
+    <Grid Width="1000" Height="720">
+        
+        <Grid Background="{StaticResource DarkDarkBlack}">
+            <Grid Background="{StaticResource DarkBlack}" Margin="10">
+
+                <Button
+                    DataContext="{Binding Decision, Source={StaticResource Locator}}"
+                    Style="{StaticResource ButtonDecisionAnswer}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Content="Back"
+                    Margin="20"
+                    Command="{Binding AnswerButton}"
+                />
+
+            </Grid>
+        </Grid>
+        
+    </Grid>
+</UserControl>

@@ -13,6 +13,7 @@ namespace Geometry2.Models
         Hipothesis,
         Bisector,
         Corner,
+        Diagonal,
         a,
         b,
         c

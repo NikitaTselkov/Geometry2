@@ -22,6 +22,8 @@
 
                 <ResourceDictionary Source="Styles/SelectShape.xaml" />
 
+                <ResourceDictionary Source="Styles/DecisionAnswerStyles.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -57,7 +57,11 @@
       <HintPath>..\packages\HelixToolkit.Wpf.2.11.0\lib\net45\HelixToolkit.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -86,7 +90,9 @@
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="Models\ShapeData.cs" />
     <Compile Include="Models\TextBoxDropDownModel.cs" />
+    <Compile Include="Navigation\NavigateDataDecision.cs" />
     <Compile Include="Navigation\NavigeteShapes.cs" />
+    <Compile Include="ViewModels\DecisionAnswerViewModel.cs" />
     <Compile Include="ViewModels\DecisionViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="Views\Figures\Cube.xaml.cs">
@@ -104,6 +110,9 @@
     <Compile Include="Views\UserControls\BackAdd.xaml.cs">
       <DependentUpon>BackAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserControls\DecisionAnswer.xaml.cs">
+      <DependentUpon>DecisionAnswer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserControls\FindData.xaml.cs">
       <DependentUpon>FindData.xaml</DependentUpon>
     </Compile>
@@ -113,6 +122,10 @@
     <Compile Include="Views\UserControls\TextBoxDropDownHintControl.xaml.cs">
       <DependentUpon>TextBoxDropDownHintControl.xaml</DependentUpon>
     </Compile>
+    <Page Include="Styles\DecisionAnswerStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Styles\DecisionStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -172,6 +185,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserControls\BackAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserControls\DecisionAnswer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
