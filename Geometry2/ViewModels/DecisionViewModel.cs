@@ -12,7 +12,7 @@ using Geometry2.Models;
 
 namespace Geometry2.ViewModels
 {
-    public class DecisionViewModel : INotifyPropertyChanged
+    public class DecisionViewModel : Navigation.NavigateViewModel, INotifyPropertyChanged
     {
         readonly DataAccess da = new DataAccess();
 
@@ -50,6 +50,7 @@ namespace Geometry2.ViewModels
 
         public string FindLetter { get; set; }
 
+        public object Shape { get; set; } = "Cube";
 
         private List<TextBoxDropDownModel> MathProps { get; set; }
 
@@ -125,6 +126,7 @@ namespace Geometry2.ViewModels
             {
                 CreateList();
                 Figures = new BindableCollection<Figures>(da.CreateShape(x.Shape));
+                Shape = x.Shape;
             });
         }
 
@@ -147,6 +149,8 @@ namespace Geometry2.ViewModels
         public void AnswerButtonLogic(object param)
         {
             IsVisibilityAnswer = VisCheck(IsVisibilityAnswer);
+
+            SendDataDecision(FindInput, GivenInput, Figures, Shape, IsVisibilityAnswer);
         }
 
         public void OpenInput(object param)

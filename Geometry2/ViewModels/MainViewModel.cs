@@ -46,6 +46,8 @@ namespace Geometry2.ViewModels
         {
             GoToFigurePage = new RelayCommand(PathToFigurePage);
             GoToDecisionPage = new RelayCommand(PathToDecisionPage);
+
+            PathToDecisionPage("");
         }
 
         public void PathToFigurePage(object param)

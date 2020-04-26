@@ -1,10 +1,13 @@
-﻿using GalaSoft.MvvmLight;
+﻿using Caliburn.Micro;
+using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
+using Geometry2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Geometry2.Navigation
 {
@@ -26,11 +29,11 @@ namespace Geometry2.Navigation
             Messenger.Default.Send<NavigeteShapes>(new NavigeteShapes(shape));
         }
 
-        public void SendDataDecision(object data)
+        public void SendDataDecision(BindableCollection<ShapeData> find, BindableCollection<ShapeData> given,
+            BindableCollection<Figures> figure, object shape, Visibility isVisibilityAnswer)
         {
-            Messenger.Default.Send<NavigateDataDecision>(new NavigateDataDecision(data));
+            Messenger.Default.Send<NavigateDataDecision>(new NavigateDataDecision(find, given, figure, shape, isVisibilityAnswer));
         }
-
 
     }
 }

@@ -26,6 +26,8 @@ namespace Geometry2
             InitializeComponent();
 
             NavigationSetup();
+
+            MainFrame.Navigate(new Uri("Views/Decision.xaml", UriKind.Relative));
         }
 
 

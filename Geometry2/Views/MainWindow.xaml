@@ -21,7 +21,7 @@
             <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="150 0 0 0">
 
                 <RadioButton Content="Figure" Style="{StaticResource Button}" Command="{Binding GoToFigurePage}" IsChecked="{Binding IsGoToFigurePagePressed}"/>
-                <RadioButton Content="Decision" Style="{StaticResource Button}" Command="{Binding GoToDecisionPage}" IsChecked="{Binding IsGoToDecisionPagePressed}" />
+                <RadioButton Content="Decision" Style="{StaticResource Button}" Command="{Binding GoToDecisionPage}" IsChecked="{Binding IsGoToDecisionPagePressed}" CommandParameter="Cube" />
 
             </DockPanel>
 
