@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Caliburn.Micro;
 using System.Windows;
-using System.Windows.Input;
 
 namespace Geometry2.Models
 {
@@ -20,6 +15,10 @@ namespace Geometry2.Models
         public TextBoxDropDownModel MathematicalProperty { get; set; }
 
         public Visibility MyVisibility { get; set; }
+
+        public string Repeat { get; set; }
+
+        public bool IsRepeat { get; set; }
 
 
     }

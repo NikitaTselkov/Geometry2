@@ -12,7 +12,6 @@ namespace Geometry2.Models.Formulas
 
         public int Answer { get; set; }
 
-
         public Formulas(List<DecisionFormat> decision, int answer)
         {
             Decision = decision;

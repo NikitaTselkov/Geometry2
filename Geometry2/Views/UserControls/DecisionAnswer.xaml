@@ -42,7 +42,7 @@
                                         <ItemsControl ItemsSource="{Binding Decision}">
                                             <ItemsControl.ItemsPanel>
                                                 <ItemsPanelTemplate>
-                                                    <DockPanel />
+                                                    <DockPanel Margin="0 5" />
                                                 </ItemsPanelTemplate>
                                             </ItemsControl.ItemsPanel>
                                             <ItemsControl.ItemTemplate>
@@ -57,7 +57,7 @@
                                             </ItemsControl.ItemTemplate>
                                         </ItemsControl>
 
-                                        <TextBlock Text="{Binding Answer}" FontSize="40" Margin="5 0" Foreground="{StaticResource DarkWhite}" />
+                                        <TextBlock Text="{Binding Answer}" FontSize="40" Margin="5" Foreground="{StaticResource DarkWhite}" />
 
                                     </DockPanel>
                                 </DataTemplate>
@@ -79,7 +79,7 @@
 
                 <ScrollViewer VerticalScrollBarVisibility="Hidden" Height="150" VerticalAlignment="Bottom">
 
-                    <ItemsControl ItemsSource="{Binding Given}" Grid.Column="0" >
+                    <ItemsControl ItemsSource="{Binding Answer}" Grid.Column="0" >
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock FontSize="40" Margin="20 10" Foreground="{StaticResource DarkWhite}">

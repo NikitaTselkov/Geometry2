@@ -36,7 +36,22 @@ namespace Geometry2.ViewModels
 
         public BindableCollection<ShapeData> FindInput { get; set; }
 
-        public BindableCollection<ShapeData> GivenInput { get; set; }
+      //  public BindableCollection<ShapeData> GivenInput { get; set; }
+
+        public BindableCollection<ShapeData> _givenInput;
+        public BindableCollection<ShapeData> GivenInput
+        {
+            get { return _givenInput; }
+            set
+            {
+                _givenInput = value;
+                //OnPropertyChanged();
+                //if (_givenInput.Count != 0)
+                //{
+                //    Formatting(_givenInput.Last());
+                //}
+            }
+        }
 
         public List<TextBoxDropDownModel> MathProperties { get; set; }
 
@@ -141,7 +156,6 @@ namespace Geometry2.ViewModels
         public void FindButtonGiven(object param)
         {
             var par = (int)param - 1;
-
             MathProp = FindButtonHelp(GivenInput, par, MathProps, MathProp);
             GivenLetter = SetLetter(GivenInput, par, LetterProps, GivenLetter);
         }
@@ -207,20 +221,45 @@ namespace Geometry2.ViewModels
 
             data = Formatting(data);
 
-            Collection.Add(data);
-            props.Add(textProp);
-            Letterprops.Add(textLetterProp);
+            if (data.IsRepeat == false)
+            {
+                Collection.Add(data);
+                props.Add(textProp);
+                Letterprops.Add(textLetterProp);
 
+            }
         }
+
+        //private void RemoveShapeHelp(BindableCollection<ShapeData> Collection, ShapeData data,
+        //    List<TextBoxDropDownModel> props, List<TextBoxDropDownModel> Letterprops)
+        //{
+
+        //    if (Collection.Count > data.ShapeId)
+        //    {
+        //        ShapeData repeat = data;
+
+        //        repeat = Collection.Last((l)=> l.Repeat != string.Empty);
+
+        //        Collection.Remove(Collection[repeat.ShapeId - 1]);
+        //        props.Remove(data.MathematicalProperty);
+        //        Letterprops.Remove(data.MathematicalProperty);
+
+        //        for (int i = 1; i < Collection.Count; i++)
+        //        {
+        //            Collection[i].ShapeId = i;
+        //        }
+        //    }
+        //}
 
         private ShapeData Formatting(ShapeData data)
         {
-
             #region Проверка обьёма
 
             if (data.MathematicalProperty.Name == "Volume")
             {
                 data.Letter = "V";
+
+              //  data.IsRepeat = IsRepeat(true, true, data, GivenInput);
             }
 
             #endregion
@@ -259,38 +298,120 @@ namespace Geometry2.ViewModels
 
             #endregion
 
+            #region Проверка грани
+
+            if (data.MathematicalProperty.Name == "Rib")
+            {
+                //data.Repeat = IsRepeat(true, false, data, GivenInput);
+
+                //if (data.Repeat != string.Empty)
+                //{
+                //    data.IsRepeat = true;
+                //}
+
+                //if (data.IsRepeat == true)
+                //{
+                //    RemoveShapeHelp(GivenInput, data, MathProps, LetterProps);
+                //    data.Repeat = string.Empty;
+                //}
+            }
+
+            #endregion
+
+
+
             return data;
         }
+
+        //private string IsRepeat(bool mathProp, bool Letter, ShapeData data, BindableCollection<ShapeData> given)
+        //{
+        //    string result = string.Empty;
+
+        //    var repeatMath = 0;
+        //    var repeatLetter = 0;
+
+        //    if (mathProp == true)
+        //    {
+        //        foreach (var item in given)
+        //        {
+        //            if (item.MathematicalProperty.Name == data.MathematicalProperty.Name)
+        //            {
+        //                repeatMath++;
+        //                if (repeatMath == 1)
+        //                {
+        //                    repeatMath = 0;
+        //                    return data.MathematicalProperty.Name;
+        //                }
+        //            }
+        //        }                    
+        //    }
+        //    if (Letter == true)
+        //    {
+        //        foreach (var item in given)
+        //        {
+        //            if (item.Letter == data.Letter)
+        //            {
+        //                repeatLetter++;
+        //                if (repeatLetter == 1)
+        //                {
+        //                    repeatLetter = 0;
+        //                    return data.Letter;
+        //                }
+        //            }
+        //        }
+        //    }
+        //
+        //    return result;
+        //}
 
         private string SetLetter(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props,
             string Letter)
         {
             var textBox = new TextBoxDropDownModel();
 
-            var shapeData = Collection[par];
-
-            var Prop = props[par];
-
-            Prop.Name = shapeData.Letter;
-
-            if (shapeData.MyVisibility == Visibility.Collapsed)
+            if (Collection.Count > par)
             {
-                textBox.Name = Letter;
+                var shapeData = Collection[par];
 
-                shapeData.Letter = Letter;
+                var Prop = props[par];
+
+                if (shapeData != null)
+                {
+                    Prop.Name = shapeData.Letter;
+
+
+                    if (shapeData.MyVisibility == Visibility.Collapsed)
+                    {
+                        textBox.Name = Letter;
+
+                        shapeData.Letter = Letter;
+
+                        Collection[par] = shapeData;
+
+                        props[par] = textBox;
+
+                        
+                    }
+                }
 
                 Formatting(shapeData);
 
-                Collection[par] = shapeData;
+                //shapeData.IsRepeat = IsRepeat(true, false, shapeData, GivenInput);
 
-                props[par] = textBox;
+                //if (shapeData.IsRepeat)
+                //{
+                //    RemoveShapeHelp(GivenInput, shapeData, MathProps, LetterProps);
+                //}
+
+                Collection.Refresh();
+
+                Figures = da.BrushLine(GivenInput, FindInput, "#5983EB", "#33AF63", Figures);
+
+                return Prop.Name;
             }
 
-            Collection.Refresh();
-
-            Figures = da.BrushLine(GivenInput, FindInput, "#5983EB", "#33AF63", Figures);
-
-            return Prop.Name;
+            
+            return null;
         }
 
         private string FindButtonHelp(BindableCollection<ShapeData> Collection, int par, List<TextBoxDropDownModel> props,
@@ -298,31 +419,40 @@ namespace Geometry2.ViewModels
         {
             var textBox = new TextBoxDropDownModel();
 
-            var shapeData = Collection[par];
+            //for (int i = 0; i < Collection.Count; i++)
+            //{
+            //    Collection[i].ShapeId = i;
+            //}
 
-            var Prop = props[par];
-
-            Prop = shapeData.MathematicalProperty;
-
-            СheckVisibility(Collection, par);
-
-            if (shapeData.MyVisibility == Visibility.Collapsed)
+            if (Collection.Count > par)
             {
-                textBox.Name = MathProp;
 
-                shapeData.MathematicalProperty.Name = MathProp;
+                var shapeData = Collection[par];
 
-                Formatting(shapeData);
+                var Prop = props[par];
 
-                Collection[par] = shapeData;
+                Prop = shapeData.MathematicalProperty;
 
-                props[par] = textBox;
+                СheckVisibility(Collection, par);
+
+                if (shapeData.MyVisibility == Visibility.Collapsed)
+                {
+                    textBox.Name = MathProp;
+
+                    shapeData.MathematicalProperty.Name = MathProp;
+
+                    Collection[par] = shapeData;
+
+                    props[par] = textBox;
+
+                    //Formatting(shapeData);
+                }
+
+                Collection.Refresh();
+
+                return Prop.Name;
             }
-
-            Collection.Refresh();
-
-            return Prop.Name;
-     
+            return null;
         }
 
         private void СheckVisibility(BindableCollection<ShapeData> Collection, int par)

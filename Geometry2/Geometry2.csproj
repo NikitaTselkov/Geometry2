@@ -110,6 +110,7 @@
     <Compile Include="Models\CreateShapes.cs" />
     <Compile Include="Models\DataAccess.cs" />
     <Compile Include="Models\Figures.cs" />
+    <Compile Include="Models\Formulas\Answer.cs" />
     <Compile Include="Models\Formulas\DecisionFormat.cs" />
     <Compile Include="Models\Formulas\Formulas.cs" />
     <Compile Include="Models\Formulas\FormulasCube.cs" />

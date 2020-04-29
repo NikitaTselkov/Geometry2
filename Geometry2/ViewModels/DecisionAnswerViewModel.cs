@@ -11,6 +11,7 @@ namespace Geometry2.ViewModels
     public class DecisionAnswerViewModel : Navigation.NavigateViewModel, INotifyPropertyChanged
     {
         FormulasCube cube = new FormulasCube();
+        Answer answer = new Answer();
 
         #region Public property
 
@@ -121,15 +122,43 @@ namespace Geometry2.ViewModels
                 IsVisibilityAnswer = x.IsVisibilityAnswer;
 
                 DecisionList = new BindableCollection<Formulas>();
+                Answer = new BindableCollection<ShapeData>();
 
                 if (IsVisibilityAnswer == Visibility.Visible)
                 {
-                    if (Given.Count > 0)
-                    {
-                        DecisionList.Add(new Formulas(cube.FindRibs(Given, Figure)));
-                    }
+                    Calculation();
                 }
             });
+        }
+
+        private void Calculation()
+        {
+            if (Given.Count > 0)
+            {
+                foreach (var item in Find)
+                {
+                    if (item.MathematicalProperty.Name == "Rib")
+                    {
+                        FindRib();
+                    }
+                    if (item.MathematicalProperty.Name == "Volume")
+                    {
+                        FindVolume();
+                    }
+                }
+            }
+        }
+
+        private void FindRib()
+        {
+            DecisionList.Add(new Formulas(cube.FindRibs(Given, Figure)));
+            Answer.Add(answer.FindAnswerRib(DecisionList, Find));
+        }
+
+        private void FindVolume()
+        {          
+            DecisionList.Add(new Formulas(cube.FindVolumes(Given)));
+            Answer.Add(answer.FindAnswerVolume(DecisionList, Find));
         }
 
         #endregion

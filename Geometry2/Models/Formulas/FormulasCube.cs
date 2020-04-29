@@ -9,7 +9,7 @@ namespace Geometry2.Models
 {
     public class FormulasCube
     {
-        public (List<DecisionFormat>, int) FindRibs(BindableCollection<ShapeData> givenRibs, BindableCollection<Figures> cubeRibs)
+        public (List<DecisionFormat> format, int answer) FindRibs(BindableCollection<ShapeData> givenRibs, BindableCollection<Figures> cubeRibs)
         {
             List<DecisionFormat> result = new List<DecisionFormat>();
 
@@ -29,6 +29,21 @@ namespace Geometry2.Models
                 result.Add(new DecisionFormat(item.Name, "="));
             }
 
+            return (result, answer);
+        }
+
+        public (List<DecisionFormat>, int) FindVolumes(BindableCollection<ShapeData> givenRibs)
+        {
+            List<DecisionFormat> result = new List<DecisionFormat>();
+
+            
+                var value = Convert.ToInt32(givenRibs[0].Value);
+
+                int answer = (int)Math.Pow(value, 3);
+
+                result.Add(new DecisionFormat("V", "= Rib³ ="));
+
+            
             return (result, answer);
         }
     }
